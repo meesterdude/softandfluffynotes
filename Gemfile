@@ -18,6 +18,7 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+  gem 'bootstrap-sass-rails'
 end
 
 gem 'jquery-rails'
@@ -38,8 +39,8 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 # gem 'debugger'
 
 gem 'rspec-rails', group: [:test, :development]
-gem 'haml-rails', group: :development
 gem 'simple_form'
+
 
 group :test do
   gem 'factory_girl_rails'
