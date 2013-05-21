@@ -15,29 +15,33 @@
       }
       body { 
         line-height:1;
-        background: #eaf5ff;
+        background: #eaf5ff;  
+        height:100%;
       }
-      .content { 
-        height: 600px;
-        text-align: center;
-      }
-      .footer {
-        position: fixed;
-        bottom: 0;
-        right: 0;
-        width: 100%;
-        background: #6a99f0;
-        height: 78px;
-        border-top: 4px solid #5575b8;
-        text-align: center;
+ 
+      html{height:100%;}
+ 
+      .wrapper {
+        min-height: 100%;
+        position: relative;
         color: #eff4fd;
+        background: #6a99f0;
       }
+      .content {
+        text-align: center;
+        padding-bottom: 120px;
+        background: #eaf5ff; 
+        border-bottom: 6px solid #5575b8;
+      }
+ 
       .blurb, .footer-text, .instructions {
         font-family: 'Josefin Sans', serif;
       }
       .footer-text {
-        padding-top: 35px;
+        padding-top: 50px;
         font-size: 20px;
+        text-align: center;
+        padding-bottom: 20px;
       }
       .title, .blurb {
         color: #ff7b87;
@@ -49,17 +53,21 @@
         text-transform: uppercase;
         line-height: 65px;
         letter-spacing: 2px;
+        text-shadow: 2px 2px #fcc;
       }
       .blurb {
         padding-top: 10px;
-        font-size: 28px;
+        font-size: 30px;
       }
       img {
         display: inline-block;
         padding-top: 70px;
       }
       .instructions {
-        padding-top: 111px;
+        padding-top: 80px;
+        padding-bottom:20px;
+        font-size: 1.3em;
+        color: black;
       }
       .form {
         margin-top: 30px;
@@ -99,24 +107,24 @@
     </style>
   </head>
   <body>
-    <div class="content">
-      <img class="logo" src="softandfluffy_logo.png" width="330">
-      <div class="title">
-        SOFT AND FLUFFY <br />
-        NOTES
+    <div class="wrapper">
+      <div class="content">
+        <img class="logo" src="softandfluffy_logo.png" width="330">
+        <div class="title">
+          SOFT AND FLUFFY <br />
+          NOTES
+        </div>
+        <div class="blurb">
+          A better way to take and track notes
+        </div>
+        <div class="instructions">
+          Enter your email address and we'll keep you updated. We do not spam or share your address.
+        </div>
+        <div class="form">
+          <input type="text" placeholder="Your_email@example.com">
+          <button type="button">Submit</button>
+        </div>
       </div>
-      <div class="blurb">
-        A better way to take and track notes
-      </div>
-      <div class="instructions">
-        Enter your email and we'll update you with related news and updates.  We do not spam.
-      </div>
-      <div class="form">
-        <input type="text" placeholder="Your_email@example.com">
-        <button type="button">Submit</button>
-      </div>
-    </div>
-    <div class="footer">
       <div class="footer-text">
         &copy;softandfluffy.com
       </div>
