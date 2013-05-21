@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>softandfluffy</title>
+    <title>softandfluffynotes</title>
     <link href="http://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet" type="text/css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <style>
       html,body,div,fieldset,form {
         border:0;
@@ -29,7 +30,7 @@
       }
       .content {
         text-align: center;
-        padding-bottom: 120px;
+        padding-bottom: 170px;
         background: #eaf5ff; 
         border-bottom: 6px solid #5575b8;
       }
@@ -106,12 +107,33 @@
       }
     </style>
   </head>
+  <script type="text/javascript">
+    $(function(){
+      $('#mc-form').submit(function(){
+        //ajax call to submit to mailchimp
+        //on success update instructions with a thankyou message.
+        var input = $('#mc-form').find('input');
+        if(input.val().length > 0) {
+          input.attr("disabled", "disabled");
+          input.blur();
+          //timeout to mimic ajax for now
+          setTimeout(function(){
+            $('.instructions').text("Thanks! We'll be in touch.");
+            input.attr('placeholder', input.val());
+            input.val("");
+            input.removeAttr("disabled");
+          }, 500)
+        }
+        return false;
+      })
+    })
+  </script>
   <body>
     <div class="wrapper">
       <div class="content">
         <img class="logo" src="softandfluffy_logo.png" width="330">
         <div class="title">
-          SOFT AND FLUFFY <br />
+          SOFT AND FLUFFY<br />
           NOTES
         </div>
         <div class="blurb">
@@ -121,14 +143,15 @@
           Enter your email address and we'll keep you updated. We do not spam or share your address.
         </div>
         <div class="form">
-          <input type="text" placeholder="Your_email@example.com">
-          <button type="button">Submit</button>
+          <form id="mc-form" action="#" method="POST">
+            <input type="text" placeholder="Your_email@example.com" name="email">
+            <button type="submit">Submit</button>
+          </form>
         </div>
       </div>
       <div class="footer-text">
         &copy;softandfluffy.com
       </div>
     </div>
-    
   </body>
 </html>
