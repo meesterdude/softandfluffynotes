@@ -19,3 +19,6 @@
 
 # Ignore database.yml
 /config/database.yml
+
+# Ignore deploy.rb
+/config/deploy.rb
