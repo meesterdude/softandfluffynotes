@@ -110,19 +110,22 @@
   <script type="text/javascript">
     $(function(){
       $('#mc-form').submit(function(){
-        //ajax call to submit to mailchimp
-        //on success update instructions with a thankyou message.
+        var form = this;
         var input = $('#mc-form').find('input');
         if(input.val().length > 0) {
-          input.attr("disabled", "disabled");
           input.blur();
-          //timeout to mimic ajax for now
-          setTimeout(function(){
-            $('.instructions').text("Thanks! We'll be in touch.");
-            input.attr('placeholder', input.val());
-            input.val("");
-            input.removeAttr("disabled");
-          }, 500)
+          $.post($(form).attr('action'), $(form).serialize(),
+            function( resp ){
+              $('.instructions').text("Thanks! We'll be in touch.");
+            }
+          ).fail(function(){
+              $('.instructions').text("Woops! Try that again.");
+            }
+          ).done(function(resp){
+              input.attr('placeholder', input.val());
+              input.val("");
+            }
+          );
         }
         return false;
       })
@@ -142,8 +145,7 @@
           Enter your email address and we'll keep you updated. We do not spam or share your address.
         </div>
         <div class="form">
-          <form id="mc-form" action="#" method="POST">
-            <!--<form action="http://fluffynotes.us7.list-manage1.com/subscribe/post?u=482bb9926a746f3c8d0e9c0b0&amp;id=1c5462512d" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>-->
+          <form action="http://fluffynotes.us7.list-manage1.com/subscribe/post?u=482bb9926a746f3c8d0e9c0b0&amp;id=1c5462512d" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
             <input type="email" placeholder="Your_email@example.com" value="" name="EMAIL" class="required email" id="mce-EMAIL">
             <button type="submit">Subscribe</button>
           </form>
