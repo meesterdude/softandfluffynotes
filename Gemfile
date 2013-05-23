@@ -4,14 +4,8 @@ gem 'rails', '3.2.13'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-group :production do
-  gem 'mysql2'
-end
 
-group :development, :test do
-  gem 'sqlite3'
-end
-
+gem 'pg'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -35,11 +29,10 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 # gem 'jbuilder'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Deploy with Capistrano
 gem 'capistrano'
-gem 'rvm-capistrano'
 
 # To use debugger
 # gem 'debugger'
