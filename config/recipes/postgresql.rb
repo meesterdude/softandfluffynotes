@@ -5,7 +5,7 @@ set_default(:postgresql_database) { "#{application}_production" }
 
 namespace :postgresql do
   desc "Install the latest stable release of PostgreSQL"
-  task :install, roles: :deb, only: {primary: true} do
+  task :install, roles: :web, only: {primary: true} do
     run "#{sudo} apt-get -y update"
     run "#{sudo} apt-get -y install postgresql libpq-dev"
   end
@@ -14,7 +14,7 @@ namespace :postgresql do
   desc "Create a database for this application."
   task :create_database, roles: :db, only: {primary: true} do
     run %Q{#{sudo} -u postgres psql -c "create user #{postgresql_user} with password '#{postgresql_password}';"}
-    run %Q{#{sudo} -u postgres psql -c "create database #{postgresql_database} owner '#{postgresql_user}';"}
+    run %Q{#{sudo} -u postgres psql -c "create database #{postgresql_database} owner #{postgresql_user};"}
   end
   after "deploy:setup", "postgresql:create_database"
 
