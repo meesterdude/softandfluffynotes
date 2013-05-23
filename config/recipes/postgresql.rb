@@ -18,6 +18,14 @@ namespace :postgresql do
   end
   after "deploy:setup", "postgresql:create_database"
 
+  desc "Fix pg_hba.conf to allow authentication from localhost and restart"
+  task :fix_pg_hba, roles: :db, only: {primary: true} do
+    template "hba_conf", "/tmp/hba_conf"
+    run "#{sudo} mv /tmp/hba_conf /etc/postgresql/9.1/main/pg_hba.conf"
+    run "#{sudo} service postgresql restart"
+  end
+  after "postgresql:install", "postgresql:fix_pg_hba"
+
   desc "Generate the database.yml configuration file."
   task :setup, roles: :app do
     run "mkdir -p #{shared_path}/config"
