@@ -6,21 +6,22 @@ set_default(:mysql_database) { "#{application}_production" }
 namespace :mysql do
   desc "Install Mysql"
   task :install, roles: :db, only: {primary: true} do
-    run "#{sudo} apt-get -y install mysql-server"
-    run "#{sudo} /usr/bin/mysql_install_db"
-    run "#{sudo} /usr/bin/mysql_secure_installation"
+    pass = Capistrano::CLI.password_prompt "Enter root database password: "
+    run "#{sudo} apt-get -y install mysql-server" do |channel, stream, data|
+      channel.send_data("#{pass}\n\r") if data =~ /password/
+    end
   end
   after "deploy:install", "mysql:install"
 
   desc "Create a database for this application."
   task :create_database, roles: :db, only: {primary: true} do
-    set(:mysql_admin_user) { Capistrano::CLI.ui.ask "MYSQL admin user:" }
+    mysql_admin_user =  Capistrano::CLI.ui.ask "MYSQL admin user:"
 
     sql = <<-SQL
-    CREATE DATABASE #{mysql_database};
-    GRANT ALL PRIVELEGES ON #{mysql_database}.* TO #{mysql_user}@localhost IDENTIFIED BY '#{mysql_password}'
+    CREATE DATABASE IF NOT EXISTS #{mysql_database};
+    GRANT ALL PRIVILEGES ON #{mysql_database}.* TO #{mysql_user}@localhost IDENTIFIED BY '#{mysql_password}'
     SQL
-    run %Q{#{sudo} --user=#{mysql_user} -p --execute="#{sql}"} do |channel, stream, data|
+    run %Q{mysql --user=#{mysql_admin_user} -p --execute="#{sql}"} do |channel, stream, data|
       if data =~ /^Enter password:/
         pass = Capistrano::CLI.password_prompt "Enter database password for '#{mysql_admin_user}': "
         channel.send_data "#{pass}\n"

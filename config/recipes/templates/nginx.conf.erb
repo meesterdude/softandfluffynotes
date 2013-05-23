@@ -1,0 +1,15 @@
+worker_processes 1;
+events {
+  worker_connections 1024;
+}
+http {
+  passenger_root /home/<%=user%>/.rvm/gems/<%=rvm_ruby_string%>/gems/passenger-4.0.2;
+  passenger_ruby /home/<%=user%>/.rvm/wrappers/<%=rvm_ruby_string%>/ruby;
+
+  include mime.types;
+  default_type application/octet-stream;
+  sendfile on;
+  keepalive_timeout 65;
+  include /opt/nginx
+  include /opt/nginx/sites-enabled/*;
+}
