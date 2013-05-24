@@ -109,23 +109,41 @@
   </head>
   <script type="text/javascript">
     $(function(){
-      $('#mc-form').submit(function(){
-        var form = this;
-        var input = $('#mc-form').find('input');
+      $('#mc-embedded-subscribe-form').submit(function(event){
+        var form = $(this);
+        var input = form.find('input');
         if(input.val().length > 0) {
           input.blur();
-          $.post($(form).attr('action'), $(form).serialize(),
-            function( resp ){
-              $('.instructions').text("Thanks! We'll be in touch.");
-            }
-          ).fail(function(){
-              $('.instructions').text("Woops! Try that again.");
-            }
-          ).done(function(resp){
+          $.ajax({
+            type: 'get',
+            url: form.attr('action').replace("subscribe/post", "subscribe/post-json") + "&c=?",
+            data: form.serialize(),
+            cache: false,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            error: function(err) {
+              $('.instructions').text("Woops! Couldn't reach registration server, please try again later.");
+            },
+            success: function(data) {
+              console.log(data);
+              if (data.result != "success") {
+                var split_msg = data.msg.split(" - ");
+                var error_msg;
+                if(split_msg.length > 2) {
+                  error_msg = split_msg.slice(1,split_msg.length).join(" - ");
+                } else {
+                  error_msg = split_msg.slice(-1)[0];
+                }
+                $('.instructions').html("Woops! " + error_msg);
+              } else {
+                $('.instructions').text("Thanks! We've sent out a confirmation email.");
+              }
+            },
+            complete: function() {
               input.attr('placeholder', input.val());
               input.val("");
             }
-          );
+          })
         }
         return false;
       })
@@ -145,7 +163,8 @@
           Enter your email address and we'll keep you updated. We do not spam or share your address.
         </div>
         <div class="form">
-          <form action="http://fluffynotes.us7.list-manage1.com/subscribe/post?u=482bb9926a746f3c8d0e9c0b0&amp;id=1c5462512d" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+          <!--<form action="http://fluffynotes.us7.list-manage1.com/subscribe/post-json?u=482bb9926a746f3c8d0e9c0b0&amp;id=1c5462512d&c=?" method="get" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate"  novalidate>-->
+          <form action="http://fluffynotes.us7.list-manage1.com/subscribe/post?u=482bb9926a746f3c8d0e9c0b0&amp;id=1c5462512d" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate"  novalidate>
             <input type="email" placeholder="Your_email@example.com" value="" name="EMAIL" class="required email" id="mce-EMAIL">
             <button type="submit">Subscribe</button>
           </form>
