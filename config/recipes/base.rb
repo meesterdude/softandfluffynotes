@@ -13,3 +13,11 @@ namespace :deploy do
   end
 end
 
+namespace :housekeeping do
+  desc "Move public/production_index.html to public/index.html"
+  task :rename_production_index, roles: :app do
+    run "mv #{current_path}/public/production_index.html #{current_path}/public/index.html"
+  end
+end
+after "deploy", "housekeeping:rename_production_index"
+after "deploy:cold", "housekeeping:rename_production_index"
