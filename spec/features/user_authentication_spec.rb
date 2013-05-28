@@ -4,7 +4,7 @@ describe "User Authentication" do
 
   it "emails user confirmation token after signing up" do
     user = FactoryGirl.build(:user)
-    visit root_url
+    visit notes_index_url
     click_link "Register"
     page.should have_content "Sign up"
     fill_in "user_email", with: user.email
