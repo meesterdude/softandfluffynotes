@@ -1,21 +1,19 @@
 require 'spec_helper'
 
 describe "User Authentication" do
-  before do
-    @user = FactoryGirl.build(:user)
-  end
 
   it "emails user confirmation token after signing up" do
+    user = FactoryGirl.build(:user)
     visit root_url
     click_link "Register"
     page.should have_content "Sign up"
-    fill_in "user_email", with: @user.email
-    fill_in "user_password", with: @user.password
-    fill_in "user_password_confirmation", with: @user.password_confirmation
-    fill_in "user_username", with: @user.username
+    fill_in "user_email", with: user.email
+    fill_in "user_password", with: user.password
+    fill_in "user_password_confirmation", with: user.password_confirmation
+    fill_in "user_username", with: user.username
     click_button "Sign up"
-    last_email.to.should include(@user.email)
-    last_email.body.should include(@user.confirmation_token)
+    last_email.to.should include(user.email)
+    last_email.body.should include(user.confirmation_token)
   end
 
   it "allows user with valid confirmation token to confirm after signing up" do
@@ -64,5 +62,28 @@ describe "User Authentication" do
       click_button "Sign in"
       page.should have_content(/Logout/)
     end
+
+    it "should send password reset link when requested" do
+      visit new_user_password_url
+      fill_in "user_email", with: @user.email
+      click_button "Send me reset password instructions"
+      last_email.to.should include(@user.email)
+      @user.reload
+      Capybara.string(last_email.body.encoded).find_link('Change my password')[:href].should == edit_user_password_url(reset_password_token: @user.reset_password_token)
+    end
+
+    it "allows password reset" do
+      visit new_user_password_url
+      fill_in "user_email", with: @user.email
+      click_button "Send me reset password instructions"
+      last_email.to.should include(@user.email)
+      @user.reload
+      visit edit_user_password_url(reset_password_token: @user.reset_password_token)
+      fill_in "New password", with: "supersecret"
+      fill_in "Confirm your new password", with: "supersecret"
+      click_button "Change my password"
+      page.should have_content(/Logout/)
+    end
   end
+
 end
