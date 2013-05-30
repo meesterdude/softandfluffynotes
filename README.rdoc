@@ -2,8 +2,8 @@
 
 A rails application that manages sets of user notes along with their tagging, and up/down voting.
 
-Requirements
-------------
+== Requirements
+
 *   PostgreSQL and the pg gem.  As the app progresses through development, more Postgres specific
     syntax may be used.
 
@@ -15,5 +15,5 @@ Requirements
 
 *   Devise gem for authentication.
 
-### Misc
+=== Misc
 *   Shoulda, simple_form, and annotate gems
