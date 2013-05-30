@@ -7,7 +7,9 @@ Initial Deployment
 1.  Login to your production server and create a new user with sudo priveleges.  This user
     is used to run all installation steps and the app itself. 
     
-    "adduser `user` --ingroup `sudo`"
+    "adduser `username` --ingroup `sudo`"
+
+    Depending on your vps, there may be a different groupname for elevated priveleges.    
 
 2.  Log out of the production server and edit your local repository's deploy.rb config file. 
     Set the username to the user you just created, make sure the git url and branch are the
