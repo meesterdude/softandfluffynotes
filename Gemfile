@@ -51,4 +51,3 @@ gem 'devise'
 
 # misc
 gem 'simple_form'
-gem 'annotate'

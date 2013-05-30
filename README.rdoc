@@ -16,4 +16,4 @@ A rails application that manages sets of user notes along with their tagging, an
 *   Devise gem for authentication.
 
 === Misc
-*   Shoulda, simple_form, and annotate gems
+*   shoulda, simple_form
