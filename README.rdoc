@@ -1,3 +1,19 @@
 == softandfluffynotes
 
-Simple multi-user note keeping, tagging, and up/down voting app.
+A rails application that manages sets of user notes along with their tagging, and up/down voting.
+
+Requirements
+------------
+*   PostgreSQL and the pg gem.  As the app progresses through development, more Postgres specific
+    syntax may be used.
+
+*   Bootstrap-sass-rails gem for layout design and css.
+
+*   Unicorn as the app server.
+
+*   Testing through rspec, capybara, and factory_girl_rails gems.   
+
+*   Devise gem for authentication.
+
+### Misc
+*   Shoulda, simple_form, and annotate gems

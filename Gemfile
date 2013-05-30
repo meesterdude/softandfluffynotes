@@ -38,7 +38,6 @@ gem 'capistrano'
 # gem 'debugger'
 
 gem 'rspec-rails', group: [:test, :development]
-gem 'simple_form'
 
 
 group :test do
@@ -49,3 +48,7 @@ group :test do
 end
 
 gem 'devise'
+
+# misc
+gem 'simple_form'
+gem 'annotate'
