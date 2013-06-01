@@ -1,9 +1,9 @@
 Softandfluffynotes::Application.routes.draw do
-  get "notes/index"
+  get "notes", to: "notes#index", as: "notes_index"
 
   get "users", to: "users#index"
 
-  devise_for :users
+  devise_for :users, controllers: {registrations: "registrations"}
 
-  root to: "users#index"
+  root to: "notes#index"
 end
