@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>fluffynotes</title>
+    <link href="http://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet" type="text/css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <style>
+      html,body,div,fieldset,form {
+        border:0;
+        font-size:100%;
+        font:inherit;
+        vertical-align:baseline;
+        margin:0;
+        padding:0;
+      }
+      body { 
+        line-height:1;
+        background: #eaf5ff;  
+        height:100%;
+      }
+ 
+      html{height:100%;}
+ 
+      .wrapper {
+        min-height: 100%;
+        position: relative;
+        color: #eff4fd;
+        background: #6a99f0;
+      }
+      .content {
+        text-align: center;
+        padding-bottom: 220px;
+        background: #eaf5ff; 
+        border-bottom: 6px solid #5575b8;
+      }
+ 
+      .blurb, .footer-text, .instructions {
+        font-family: 'Josefin Sans', serif;
+      }
+      .footer-text {
+        padding-top: 50px;
+        font-size: 20px;
+        text-align: center;
+        padding-bottom: 20px;
+      }
+      .title, .blurb {
+        color: #ff7b87;
+      }
+      .title {
+        padding-top: 30px;
+        font-family: 'Dancing Script';
+        font-size: 53px;
+        text-transform: uppercase;
+        line-height: 65px;
+        letter-spacing: 2px;
+        text-shadow: 2px 2px #fcc;
+      }
+      .blurb {
+        padding-top: 10px;
+        font-size: 30px;
+      }
+      img {
+        display: inline-block;
+        padding-top: 70px;
+      }
+      .instructions {
+        padding-top: 80px;
+        padding-bottom:20px;
+        font-size: 1.3em;
+        color: black;
+      }
+      .form {
+        margin-top: 30px;
+      }
+      .form input {
+        border: 2px solid #97ccf1;
+        height: 35px;
+        border-radius: 4px;
+        width: 250px;
+        font-size: 18px;
+        padding-left: 6px;
+      }
+      .form button {
+        background-color: #5bb75b;
+        background-image: linear-gradient(to bottom, #62c462, #51a351);
+        background-repeat: repeat-x;
+        font-size: 18px;
+        color: #fff;
+        height: 40px;
+        border-radius: 4px;
+        border: 1px solid rgba(0,0,0,0.1);
+        padding-left: 12px;
+        padding-right: 12px;
+        margin-left: 18px;
+        box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 1px 2px rgba(0,0,0,0.05);
+      }
+      .form button:hover {
+        background-color: #51a351;
+        background-position: 0 -15px;
+        transition: background-position 0.1s linear;
+      }
+      .form button:active {
+        box-shadow: inset 0 2px 4px rgba(0,0,0, 0.15), 0 1px 2px rgba(0,0,0,0.5);
+        outline: 0;
+        background-image: none;
+      }
+    </style>
+  </head>
+  <script type="text/javascript">
+    $(function(){
+      $('#mc-form').submit(function(){
+        var form = this;
+        var input = $('#mc-form').find('input');
+        if(input.val().length > 0) {
+          input.blur();
+          $.post($(form).attr('action'), $(form).serialize(),
+            function( resp ){
+              $('.instructions').text("Thanks! We'll be in touch.");
+            }
+          ).fail(function(){
+              $('.instructions').text("Woops! Try that again.");
+            }
+          ).done(function(resp){
+              input.attr('placeholder', input.val());
+              input.val("");
+            }
+          );
+        }
+        return false;
+      })
+    })
+  </script>
+  <body>
+    <div class="wrapper">
+      <div class="content">
+        <img class="logo" src="softandfluffy_logo.png" width="330">
+        <div class="title">
+          FLUFFY NOTES
+        </div>
+        <div class="blurb">
+          A better way to take and track notes
+        </div>
+        <div class="instructions">
+          Enter your email address and we'll keep you updated. We do not spam or share your address.
+        </div>
+        <div class="form">
+          <form action="http://fluffynotes.us7.list-manage1.com/subscribe/post?u=482bb9926a746f3c8d0e9c0b0&amp;id=1c5462512d" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+            <input type="email" placeholder="Your_email@example.com" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-text">
+        &copy;fluffynotes.com
+      </div>
+    </div>
+  </body>
+</html>
