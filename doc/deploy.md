@@ -7,7 +7,7 @@ Initial Deployment
 1.  Login to your production server and create a new user with sudo priveleges.  This user
     is used to run all installation steps and the app itself. 
     
-    "adduser `username` --ingroup `sudo`"
+    "adduser `some_user` --ingroup `sudo`"
 
     Depending on your vps, there may be a different groupname for elevated priveleges.    
 
@@ -20,6 +20,7 @@ Initial Deployment
     parameters are what you want.
 
     ```ruby
+    # config/deploy.rb
     # ...
     
     server "localhost", :web, :app, :db, primary: true # change localhost to your server
@@ -56,4 +57,4 @@ Initial Deployment
 Subsequent Deployments
 ----------------------
 
-Running "cap deploy" should take care of these.
+Running "cap deploy" from the root of your local repo should take care of these.
