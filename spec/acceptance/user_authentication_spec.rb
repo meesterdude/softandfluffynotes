@@ -4,7 +4,6 @@ require 'acceptance_helper'
 feature "User Authentication" do
   include AuthenticationMacros
   include EmailSpec::Helpers
-  include EmailSpec::Matchers
 
   let(:valid_user) { FactoryGirl.build(:user) }
   
@@ -19,7 +18,10 @@ feature "User Authentication" do
     click_link "Logout"
     page.should have_content("Signed out successfully")
     page.should have_link('Login')
-    sign_in(valid_user)
+    click_link "Login"
+    fill_in "Login", with: valid_user.email
+    fill_in "Password", with: valid_user.password 
+    click_button "Sign in"
     page.should have_link('Logout')
   end
 

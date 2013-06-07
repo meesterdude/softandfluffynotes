@@ -2,9 +2,7 @@ require 'spec_helper'
 require 'acceptance_helper'
 
 feature "Forgotten password handling" do
-  include AuthenticationMacros
   include EmailSpec::Helpers
-  include EmailSpec::Matchers
 
   let(:valid_user) { FactoryGirl.create(:user, confirmed_at: Time.now) }
 
