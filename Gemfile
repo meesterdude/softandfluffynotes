@@ -45,6 +45,7 @@ group :test do
   gem 'capybara'
   gem 'guard-rspec'
   gem 'shoulda'
+  gem 'email_spec'
 end
 
 gem 'devise'
