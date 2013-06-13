@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'acceptance_helper'
 
 feature "User Authentication" do
